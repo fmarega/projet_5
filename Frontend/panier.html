@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+   <meta charset="utf-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+   <script src="https://kit.fontawesome.com/5c432e63cf.js" crossorigin="anonymous"></script>
+   <link rel="stylesheet" href="style.css" />
+   <link rel="shortcut icon" type="image/png" href="../Backend/images/logo.png">
+   <!-- <script defer src="produit.js"></script> -->
+   <script defer src="common.js"></script>
+   <script defer src="panier.js"></script>
+   <title>Mon panier</title>
+</head>
+
+<body>
+   <!--navbar-->
+   <header class="barre" id="header">
+      <div class="bg-dark">
+         <div class="container">
+            <div class="row">
+               <nav class="col navbar navbar-expand-lg navbar-dark">
+                  <a class="navbar-brand" href="../index.html">
+                     <h1><img src="../BackEnd/images/logo.png" width="120" height="70" alt="Info Logo" /></h1>
+                  </a>
+                  <div id="navbar" class="navbar-collapse collapse">
+                     <a class="nav-icon" href="../Frontend/panier.html">
+                        <i class="fas fa-cart-plus">
+                           <span id="monPanier">Mon panier</span>
+                        </i>
+                     </a>
+                  </div>
+               </nav>
+            </div>
+         </div>
+      </div>
+   </header>
+   <section>
+      <h2>Mon panier</h2>
+      <table id="recPanier"></table>
+   </section>
+   <section id="form">
+      <button type="button" class="retour">
+         <a href="../index.html">Continuer mes achats </a>
+      </button>
+      <h4>Coordonnées</h4>
+      <form method="POST" class="valid">
+         <label for="firstName">Prénom</label>
+         <input type="text" id="firstName" pattern="^(.){3,128}$" required value="prenom"><br>
+         <label for="lastName">Nom</label>
+         <input type="text" id="lastName" pattern="^(.){3,128}$" required value="nom"><br>
+         <label for="address">Adresse</label>
+         <input type="text" id="address" pattern="^([0-9a-z'àâéèêôùûçÀÂÉÈÔÙÛÇ\s-]{1,50})$" required value="adresse"><br>
+         <label for="codePostal">Code postal</label>
+         <input type="number" id="codePostal" pattern="^((0[1-9])|([1-8][0-9])|(9[0-8])|(2A)|(2B))[0-9]{3}$" required value="78000"><br>
+         <label for="city">Ville</label>
+         <input type="text" id="city" pattern="^(.){2,128}$" required value="Ville"><br>
+         <label for="email">E-mail </label>
+         <input type="email" id="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required value="prenom.nom@foo.com"><br><br>
+         <button type="button" id="submitButton">Passer commande</button>
+      </form>
+   </section>
+   <!--Button back to top-->
+   <a href="#header"></a>
+   <!--Pied de page-->
+   <footer>
+      <div class="container bloc-sm">
+         <ul>
+            <li class="list-inline-item">
+               <a href="mentions.html">Mentions légales</a>
+            </li>
+            <li class="list-inline-item">
+               <a href="conditions.html">Conditions de vente</a>
+            </li>
+         </ul>
+      </div>
+   </footer>
+</body>
+
+</html>
