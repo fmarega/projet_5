@@ -2,7 +2,6 @@ function recapCommande(data) {
 	const section = document.getElementById('recapPanier'); // Emplacement du contenu que l'on va créer (num commande)
 	const total = JSON.parse(localStorage.getItem('total'));
 	const nbrOfArticles = JSON.parse(localStorage.getItem('product')).length;
-	//const orderId = localStorage.getItem('orderId');
 	const article = document.createElement('article');
 	const orderId = new URL(window.location).searchParams.get('order-id');
 	var text = document.createTextNode(`Votre numéro de commande est: ${orderId}`);

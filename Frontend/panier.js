@@ -40,18 +40,66 @@ function getOrderId(data) {
 }
 
 function isInvalid(contact) {
-	var badChar = /[0-9\*\.\(\)\[\]\{\}\?,;:!\$\^\"~&]/;
+	var goodName = /^(?=.{1,50}$)[a-z-]+(?:['_.\s][a-z]+)*$/i;
 	var goodEmail = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
+	var goodAddress = /^[a-zA-Z0-9\s]{2,}$/;
 
-	return badChar.test(contact.firstName) ||
-		badChar.test(contact.lastName) ||
-		badChar.test(contact.city) ||
-		!goodEmail.test(contact.email);
+	var firstNameError = document.getElementById('missPrenom');
+	var lastNameError = document.getElementById('missNom');
+	var emailError = document.getElementById('missMail');
+	var addressError = document.getElementById('missAddress');
+	var cityError = document.getElementById('missCity');
+
+	// validation de prénom
+	if (!goodName.test(contact.firstName)) {
+		firstNameError.innerText = "Le prénom n'est pas valide";
+		firstNameError.style.color = 'red';
+	} else {
+		firstNameError.innerText = '';
+	}
+
+	// validation de nom
+	if (!goodName.test(contact.lastName)) {
+		lastNameError.innerText = "Le nom n'est pas valide";
+		lastNameError.style.color = 'red';
+	} else {
+		lastNameError.innerText = '';
+	}
+
+	// Validation de l'email
+	if (!goodEmail.test(contact.email)) {
+		emailError.innerText = "L'email n'est pas valide";
+		emailError.style.color = 'red';
+	} else {
+		emailError.innerText = '';
+	}
+
+	// validation de la ville
+	if (!goodName.test(contact.city)) {
+		cityError.innerText = "La ville n'est pas valide";
+		cityError.style.color = 'red';
+	} else {
+		cityError.innerText = '';
+	}
+
+	// Validation de l'adresse
+	if (!goodAddress.test(contact.address)) {
+		addressError.innerText = "L'adresse n'est pas valide";
+		addressError.style.color = 'red';
+	} else {
+		addressError.innerText = '';
+	}
+
+	return (
+		!goodName.test(contact.firstName) ||
+		!goodName.test(contact.lastName) ||
+		!goodName.test(contact.city) ||
+		!goodEmail.test(contact.email)
+	);
 }
 
 function sendData(contact) {
 	//fonction qui envoit les données du formulaire à l'API
-	console.log('test', contact);
 	let itemAdd = JSON.parse(localStorage.getItem('product'));
 	let products = [];
 
@@ -62,32 +110,34 @@ function sendData(contact) {
 
 	const order = { contact, products }; // données attendues par l'API (les contacts et le tableau des produits)
 
-	fetch(url, {	//pour exécuter la requêtes HTTP de manière asynchrone
+	fetch(url, {
+		//pour exécuter la requêtes HTTP de manière asynchrone
 		method: 'post',
-		headers: { // pour prévenir le server qu'il va recevoir du json
+		headers: {
+			// pour prévenir le server qu'il va recevoir du json
 			Accept: 'application/json',
 			'Content-Type': 'application/json'
 		},
-		body: json // le corps de la requette
+		body: JSON.stringify(order) // le corps de la requette
 	})
-		.then(function (response) {	//la fonction qui va être résolue
+		.then(function(response) {
+			//la fonction qui va être résolue
 			return response.json();
 		})
-		.then(function (data) {	//exécuter ce code dès que la promesse est résolue
-			console.log('Created Gist:', data);
+		.then(function(data) {
+			//exécuter ce code dès que la promesse est résolue
 			if (data.orderId != undefined) {
 				localStorage.setItem('orderId', data.orderId);
 				location.href = `recap.html?order-id=${data.orderId}`;
 			}
-
 		})
-		.catch(function (error) {	//exécuter ce code dès qu'une erreur est survenue.
+		.catch(function(error) {
+			//exécuter ce code dès qu'une erreur est survenue.
 			console.log(error);
 		});
 }
 
 document.getElementById('submitButton').addEventListener('click', (event) => {
-	console.log('validation ===>')
 	//fonction qui envoit les données du formulaire à l'API
 	const firstName = document.getElementById('firstName').value;
 	const lastName = document.getElementById('lastName').value;
@@ -99,15 +149,12 @@ document.getElementById('submitButton').addEventListener('click', (event) => {
 		lastName: lastName,
 		address: address,
 		city: city,
-		email: email,
+		email: email
 	};
-	console.log('validation ===>', isInvalid(contact))
-
+	// si les caractéres dans les champs du formulaire ne sont pas respectés 
 	if (isInvalid(contact)) {
-		document.getElementById('firstName').value = "error";
 		event.preventDefault();
-	} else {
-		console.log('test de else')
+	} else { //sinon envoie les données du formulaire à l'API
 		sendData(contact);
 	}
 });

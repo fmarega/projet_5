@@ -19,6 +19,6 @@ function XMLRequest(url, callback = renderHTML, method = "GET", data = "") {
         request.setRequestHeader("Content-Type", "application/json"); //type de mine specifique pour représenter l'objet du tableau des données
         request.send(order = data);
     } else {
-        request.send(); // envoi de la requête au service web.
+        request.send(); // envoie de la requête au service web.
     }
 };
