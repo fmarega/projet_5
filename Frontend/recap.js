@@ -1,5 +1,5 @@
 function recapCommande(data) {
-	const section = document.getElementById('recapPanier'); // Emplacement du contenu que l'on va créer (num commande)
+	const section = document.getElementById('recapPanier'); // Emplacement du contenu que l'on va créer
 	const total = JSON.parse(localStorage.getItem('total'));
 	const nbrOfArticles = JSON.parse(localStorage.getItem('product')).length;
 	const article = document.createElement('article');
